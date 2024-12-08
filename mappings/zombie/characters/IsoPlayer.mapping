@@ -1,0 +1,4 @@
+CLASS zombie/characters/IsoPlayer
+	METHOD setInstance (Lzombie/characters/IsoPlayer;)V
+		ARG 0 inst
+			COMMENT test comment
