@@ -16,7 +16,7 @@ plugins {
     id 'java' // for constants, packages, javadoc
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.21.0"
-    id "leaf-loom" version "1.8.local"
+    id "leaf-loom" version "1.9.local"
     id 'net.aoqia.filament'
 }
 
@@ -170,12 +170,12 @@ tasks.register('convertToV1', ConvertMappingsTask) {
 }
 
 // Original code merges official and intermediary to tiny mappings.
-tasks.register('mergeTiny', MergeMappingsTask) {
-    group = buildMappingGroup
-    output = new File(tempDir, "mappings.tiny")
-    mappingInputs.from convertToV1.output
-    outputFormat = MappingFormat.TINY_FILE
-}
+//tasks.register('mergeTiny', MergeMappingsTask) {
+//    group = buildMappingGroup
+//    output = new File(tempDir, "mappings.tiny")
+//    mappingInputs.from convertToV1.output
+//    outputFormat = MappingFormat.TINY_FILE
+//}
 
 // Disable the default jar task
 jar {
@@ -193,17 +193,17 @@ jar {
 
 // Creates a yarn jar from merged tiny mappings
 tasks.register('tinyJar', Jar) {
-    dependsOn mergeTiny
     group = buildMappingGroup
     archiveFileName = "yarn-${yarnVersion}.jar"
     destinationDirectory.set(file("build/libs"))
     archiveClassifier = ""
 
-    from(mergeTiny.output) {
+    from(completeMappings.output) {
         rename {
             "mappings/mappings.tiny"
         }
     }
+
     manifest {
         attributes("Zomboid-Version-Id": zomboid_version)
     }
@@ -211,10 +211,10 @@ tasks.register('tinyJar', Jar) {
 
 // Compresses the tiny mappings (presumably for build)
 tasks.register('compressTiny', FileInputOutput) {
-    dependsOn tinyJar, mergeTiny
+    dependsOn tinyJar
     group = buildMappingGroup
 
-    input = mergeTiny.output
+    input = completeMappings.output
     output = new File(libs, "yarn-tiny-${yarnVersion}.gz")
 
     doLast {
