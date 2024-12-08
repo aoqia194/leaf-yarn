@@ -3,11 +3,11 @@ import org.gradle.util.GradleVersion
 plugins {
 	id 'java-library'
 	id 'java-gradle-plugin'
-	id 'checkstyle'
+	// id 'checkstyle'
 	id 'maven-publish'
 }
 
-group = 'net.fabricmc'
+group = 'net.aoqia'
 version = project.filament_version
 
 def ENV = System.getenv()
@@ -40,7 +40,7 @@ dependencies {
 	implementation 'net.fabricmc:javapoet:0.1.1'
 
 	// Contains a number of useful utilities we can re-use.
-	implementation ("net.fabricmc:fabric-loom:1.7.3") {
+	implementation ("net.aoqia:leaf-loom:1.8.local") {
 		transitive = false
 	}
 
@@ -58,23 +58,23 @@ test {
 	useJUnitPlatform()
 }
 
-checkstyle {
-	configFile = file('checkstyle.xml')
-	toolVersion = '10.13.0'
-}
+//checkstyle {
+//	configFile = file('checkstyle.xml')
+//	toolVersion = '10.13.0'
+//}
 
 // Workaround https://github.com/gradle/gradle/issues/27035
-configurations.checkstyle {
-	resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
-		select("com.google.guava:guava:0")
-	}
-}
+//configurations.checkstyle {
+//	resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+//		select("com.google.guava:guava:0")
+//	}
+//}
 
 gradlePlugin {
 	plugins {
 		filament {
-			id = 'net.fabricmc.filament'
-			implementationClass = 'net.fabricmc.filament.FilamentGradlePlugin'
+			id = 'net.aoqia.filament'
+			implementationClass = 'net.aoqia.filament.FilamentGradlePlugin'
 		}
 	}
 }
@@ -83,7 +83,7 @@ publishing {
 	repositories {
 		if (ENV.MAVEN_URL) {
 			repositories.maven {
-				name "fabric"
+				name "leaf"
 				url ENV.MAVEN_URL
 				credentials {
 					username ENV.MAVEN_USERNAME
