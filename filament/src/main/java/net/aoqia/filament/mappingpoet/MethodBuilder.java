@@ -91,19 +91,13 @@ public class MethodBuilder {
         return builder;
     }
 
+    private void addJavaDoc() {
+        mappings.addMethodDoc(builder::addJavadoc, environment, classNode.name, methodNode.name, methodNode.desc);
+    }
+
     private void addAnnotations() {
         addDirectAnnotations(methodNode.invisibleAnnotations);
         addDirectAnnotations(methodNode.visibleAnnotations);
-    }
-
-    private void addDirectAnnotations(List<AnnotationNode> regularAnnotations) {
-        if (regularAnnotations == null) {
-            return;
-        }
-
-        for (AnnotationNode annotation : regularAnnotations) {
-            builder.addAnnotation(FieldBuilder.parseAnnotation(annotation));
-        }
     }
 
     private void setReturnType() {
@@ -125,7 +119,8 @@ public class MethodBuilder {
 
         builder.returns(typeName);
 
-        if (typeName != TypeName.VOID && !builder.modifiers.contains(Modifier.ABSTRACT)) {
+        if (typeName != TypeName.VOID && !builder.modifiers.contains(Modifier.ABSTRACT) &&
+            !builder.modifiers.contains(Modifier.NATIVE)) {
             builder.addStatement("throw new RuntimeException()");
         } else if (methodNode.annotationDefault != null) {
             builder.defaultValue(FieldBuilder.codeFromAnnoValue(methodNode.annotationDefault));
@@ -191,17 +186,30 @@ public class MethodBuilder {
         }
     }
 
-    private static void addDirectAnnotations(ParameterSpec.Builder builder,
-        List<AnnotationNode>[] regularAnnotations,
-        int index) {
-        if (regularAnnotations == null || regularAnnotations.length <= index) {
+    private void addExceptions() {
+        if (signature != null && !signature.thrown().isEmpty()) {
+            for (TypeName each : signature.thrown()) {
+                builder.addException(each);
+            }
+
             return;
         }
 
-        addDirectAnnotations(builder, regularAnnotations[index]);
+        List<String> exceptions = methodNode.exceptions;
+
+        if (exceptions != null) {
+            int index = 0;
+
+            for (String internalName : exceptions) {
+                builder.addException(AnnotationAwareDescriptors.parseType(internalName,
+                    typeAnnotations.getBank(TypeReference.newExceptionReference(index)),
+                    environment));
+                index++;
+            }
+        }
     }
 
-    private static void addDirectAnnotations(ParameterSpec.Builder builder, List<AnnotationNode> regularAnnotations) {
+    private void addDirectAnnotations(List<AnnotationNode> regularAnnotations) {
         if (regularAnnotations == null) {
             return;
         }
@@ -268,35 +276,28 @@ public class MethodBuilder {
 		 */
     }
 
+    private static void addDirectAnnotations(ParameterSpec.Builder builder,
+        List<AnnotationNode>[] regularAnnotations,
+        int index) {
+        if (regularAnnotations == null || regularAnnotations.length <= index) {
+            return;
+        }
+
+        addDirectAnnotations(builder, regularAnnotations[index]);
+    }
+
     private static IllegalArgumentException invalidMethodDesc(String desc, int index) {
         return new IllegalArgumentException(String.format("Invalid method descriptor at %d: \"%s\"", index, desc));
     }
 
-    private void addExceptions() {
-        if (signature != null && !signature.thrown().isEmpty()) {
-            for (TypeName each : signature.thrown()) {
-                builder.addException(each);
-            }
-
+    private static void addDirectAnnotations(ParameterSpec.Builder builder, List<AnnotationNode> regularAnnotations) {
+        if (regularAnnotations == null) {
             return;
         }
 
-        List<String> exceptions = methodNode.exceptions;
-
-        if (exceptions != null) {
-            int index = 0;
-
-            for (String internalName : exceptions) {
-                builder.addException(AnnotationAwareDescriptors.parseType(internalName,
-                    typeAnnotations.getBank(TypeReference.newExceptionReference(index)),
-                    environment));
-                index++;
-            }
+        for (AnnotationNode annotation : regularAnnotations) {
+            builder.addAnnotation(FieldBuilder.parseAnnotation(annotation));
         }
-    }
-
-    private void addJavaDoc() {
-        mappings.addMethodDoc(builder::addJavadoc, environment, classNode.name, methodNode.name, methodNode.desc);
     }
 
     static String reserveValidName(String suggestedName, Set<String> usedNames) {
