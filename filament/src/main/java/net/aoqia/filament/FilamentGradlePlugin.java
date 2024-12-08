@@ -33,6 +33,8 @@ public final class FilamentGradlePlugin implements Plugin<Project> {
             task.getJarName().set(jarName);
             task.getZomboidVersion().set(extension.getZomboidVersion().get());
             task.getFilamentCacheDir().set(extension.getZomboidDirectory().get());
+            task.getForceCopy().set(project.getGradle().getStartParameter().isRefreshDependencies()
+                                    || Boolean.getBoolean("loom.refresh"));
             task.getOutput().set(extension.getZomboidFile(jarName));
         });
 
