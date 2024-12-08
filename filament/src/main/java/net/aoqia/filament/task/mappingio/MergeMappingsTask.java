@@ -23,14 +23,14 @@ public abstract class MergeMappingsTask extends MappingOutputTask {
         var mappingTree = new MemoryMappingTree();
 
         for (File file : getMappingInputs().getFiles()) {
-            var nsSwitch = new MappingSourceNsSwitch(mappingTree, "intermediary");
+            var nsSwitch = new MappingSourceNsSwitch(mappingTree, "official");
             MappingReader.read(file.toPath(), nsSwitch);
         }
 
         fixInnerClasses(mappingTree);
 
         var nsCompleter = new MappingNsCompleter(writer, Map.of("named", "intermediary"), true);
-        var dstReorder = new MappingDstNsReorder(nsCompleter, List.of("intermediary", "named"));
+        var dstReorder = new MappingDstNsReorder(nsCompleter, List.of("named"));
         var sourceNsSwitch = new MappingSourceNsSwitch(dstReorder, "official");
         mappingTree.accept(sourceNsSwitch);
     }

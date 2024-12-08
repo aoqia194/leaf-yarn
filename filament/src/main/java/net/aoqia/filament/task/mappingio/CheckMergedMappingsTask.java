@@ -37,7 +37,7 @@ public abstract class CheckMergedMappingsTask extends FilamentTask implements Wi
 
             @Override
             public boolean visitClass(String srcName) throws IOException {
-                if (srcName.startsWith("net/minecraft/class_")) {
+                if (srcName.startsWith("zombie/class_")) {
                     errors.add("Encountered mapping for non-existent class " + srcName);
                 }
 

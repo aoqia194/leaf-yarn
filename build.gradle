@@ -16,20 +16,19 @@ plugins {
     id 'java' // for constants, packages, javadoc
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.21.0"
-    //id "leaf-loom" version "1.8.local"
+    id "leaf-loom" version "1.8.local"
     id 'net.aoqia.filament'
 }
 
 def zomboid_version = "41.78.16"
 
-//loom {
-//    clientOnlyZomboidJar()
-//}
+loom {
+    clientOnlyZomboidJar()
+}
 
 dependencies {
-    // Dummy zomboid dependency to generate game files n stuff
+    // Dummy zomboid dependency to generate game files n stuff from loom.
     zomboid "com.theindiestone:zomboid:${zomboid_version}"
-    mappings "net.aoqia:dummy:1.2.3"
 }
 
 filament {
@@ -117,7 +116,7 @@ tasks.register('yarn', EnigmaTask) {
     mappings = mappingsDir
 }
 
-//tasks.register('yarnCommon', EnigmaTask) {
+//tasks.register('yarnServer', EnigmaTask) {
 //    group = yarnGroup
 //    jar = mapServerNamedJar.output
 //    mappings = mappingsDir
@@ -329,21 +328,22 @@ tasks.register('v2MergedYarnJar', Jar) {
     }
 }
 
-// Takes the intermediary jar and outputs a named jar for external tools.
-//tasks.register('mapNamedJar', MapJarTask) {
-//    group = mapJarGroup
-//    output = layout.buildDirectory.file("${zomboid_version}-named.jar")
-//    input = getOfficialJar.output
-//    mappings = mergeV2.output
-//    classpath.from zomboidLibraries
-//    from = 'official'
-//    to = 'named'
-//    classMappings = [
-//        "javax/annotation/Nullable": "org/jetbrains/annotations/Nullable",
-//        "javax/annotation/Nonnull": "org/jetbrains/annotations/NotNull",
-//        "javax/annotation/concurrent/Immutable": "org/jetbrains/annotations/Unmodifiable"
-//    ]
-//}
+// ORIGINAL: Takes the intermediary jar and outputs a named jar for external tools.
+// CUSTOM: Takes the official jar and outputs a named jar for external tools.
+tasks.register('mapNamedJar', MapJarTask) {
+    group = mapJarGroup
+    output = layout.buildDirectory.file("${zomboid_version}-named.jar")
+    input = getOfficialJar.output
+    mappings = completeMappings.output
+    classpath.from zomboidLibraries
+    from = 'official'
+    to = 'named'
+    classMappings = [
+        "javax/annotation/Nullable": "org/jetbrains/annotations/Nullable",
+        "javax/annotation/Nonnull": "org/jetbrains/annotations/NotNull",
+        "javax/annotation/concurrent/Immutable": "org/jetbrains/annotations/Unmodifiable"
+    ]
+}
 
 def zomboidLibsDir = file('build/tmp/zomboidlibs')
 
@@ -356,7 +356,7 @@ tasks.register('syncDependencies', Sync) {
 def fakeSourceDir = file(".gradle/temp/fakeSource")
 tasks.register('genFakeSource', MappingPoetTask) {
     group = "javadoc generation"
-    // mappings = mergeV2.output
+    mappings = completeMappings.output
     zomboidJar = getOfficialJar.output
     libraries.from(zomboidLibraries)
     output = fakeSourceDir
@@ -440,6 +440,7 @@ javadoc {
             'https://commons.apache.org/proper/commons-compress/apidocs/',
             'https://hc.apache.org/httpcomponents-client-4.5.x/current/httpclient/apidocs/',
             // "https://maven.fabricmc.net/docs/fabric-loader-${project.fabric_loader_version}/",
+            "https://projectzomboid.com/modding/",
             "https://docs.oracle.com/en/java/javase/21/docs/api/"
         )
         // https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.
@@ -488,14 +489,13 @@ def checkMappings = tasks.register("checkMappings", CheckMappingsTask) {
     input = mappingsDir
 }
 
-// TODO: Implement
-//def checkMergedMappings = tasks.register("checkMergedMappings", CheckMergedMappingsTask) {
-//    input = mergeV2.output
-//}
+def checkMergedMappings = tasks.register("checkMergedMappings", CheckMergedMappingsTask) {
+    input = completeMappings.output
+}
 
 check.dependsOn checkPackages
 check.dependsOn checkMappings
-// check.dependsOn checkMergedMappings // TODO: Implement
+check.dependsOn checkMergedMappings
 check.dependsOn javadocLint
 
 publishing {

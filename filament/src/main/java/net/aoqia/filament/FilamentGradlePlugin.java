@@ -4,11 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.aoqia.filament.task.*;
 import net.aoqia.filament.task.base.WithFileOutput;
-import net.aoqia.loom.configuration.CompileConfiguration;
-import net.aoqia.loom.configuration.ConfigContext;
-import net.aoqia.loom.configuration.ConfigContextImpl;
-import net.aoqia.loom.configuration.providers.zomboid.ZomboidJarConfiguration;
-import net.aoqia.loom.configuration.providers.zomboid.ZomboidProvider;
 import net.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
 import net.aoqia.loom.util.gradle.GradleUtils;
 import org.gradle.api.Plugin;
@@ -28,9 +23,6 @@ public final class FilamentGradlePlugin implements Plugin<Project> {
     public void apply(Project project) {
         final FilamentExtension extension = project.getExtensions().create("filament", FilamentExtension.class);
         final TaskContainer tasks = project.getTasks();
-
-        // Run Loom's compile configuration to setup zomboid provider.
-        project.getObjects().newInstance(CompileConfiguration.class).run();
 
         var metaProvider = extension.getZomboidVersionMetadata();
 
