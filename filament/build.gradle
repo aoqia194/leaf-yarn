@@ -40,7 +40,7 @@ dependencies {
 	implementation 'net.fabricmc:javapoet:0.1.1'
 
 	// Contains a number of useful utilities we can re-use.
-	implementation ("net.aoqia:leaf-loom:1.8.local") {
+	implementation ("net.aoqia:leaf-loom:1.9.local") {
 		transitive = false
 	}
 
