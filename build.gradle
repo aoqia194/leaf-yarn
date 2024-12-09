@@ -155,14 +155,14 @@ tasks.register('mapSpecializedMethods', MapSpecializedMethodsTask) {
     outputMappingsFormat = "tinyv2:official:named"
 }
 
-// Creates intermediary->named tinyv2 mapping type.
+// Creates official->named tinyv2 mapping type.
 tasks.register('completeMappings', CompleteMappingsTask) {
     input = mapSpecializedMethods.output
     output = new File(tempDir, "yarn-mappings-v2.tiny")
     outputFormat = MappingFormat.TINY_2_FILE
 }
 
-// Converts the intermediary->named mappings to v1 mapping type.
+// Converts the official->named mappings to v1 mapping type.
 tasks.register('convertToV1', ConvertMappingsTask) {
     input = mapSpecializedMethods.output
     output = new File(tempDir, "yarn-mappings.tiny")
@@ -193,6 +193,8 @@ jar {
 
 // Creates a yarn jar from merged tiny mappings
 tasks.register('tinyJar', Jar) {
+    dependsOn completeMappings
+
     group = buildMappingGroup
     archiveFileName = "yarn-${yarnVersion}.jar"
     destinationDirectory.set(file("build/libs"))
@@ -211,7 +213,7 @@ tasks.register('tinyJar', Jar) {
 
 // Compresses the tiny mappings (presumably for build)
 tasks.register('compressTiny', FileInputOutput) {
-    dependsOn tinyJar
+    dependsOn tinyJar, completeMappings
     group = buildMappingGroup
 
     input = completeMappings.output
@@ -248,7 +250,8 @@ tasks.register('constantsJar', Jar) {
     archiveClassifier = "constants"
 }
 
-tasks.build.dependsOn "compressTiny", "tinyJar", "v2UnmergedYarnJar", "v2MergedYarnJar", "javadocJar"
+//tasks.build.dependsOn "compressTiny", "tinyJar", "v2UnmergedYarnJar", "v2MergedYarnJar", "javadocJar"
+tasks.build.dependsOn "compressTiny", "tinyJar", "v2MergedYarnJar", "javadocJar"
 
 combineUnpickDefinitions {
     group = 'unpick'
@@ -292,29 +295,43 @@ tasks.register('sourcesJar', Jar) {
 build.dependsOn constantsJar
 
 // Combines the combined unpick defs and unpick meta file into a jar
-tasks.register('v2UnmergedYarnJar', Jar) {
-    dependsOn combineUnpickDefinitions
-    group = "mapping build"
-    archiveFileName = "yarn-${yarnVersion}-v2.jar"
-
-    from(combineUnpickDefinitions.output) {
-        rename combineUnpickDefinitions.output.get().asFile.name, "extras/definitions.unpick"
-    }
-    from(file(unpickMetaFile)) {
-        expand version: project.unpick_version
-        rename unpickMetaFile.name, "extras/unpick.json"
-    }
-    destinationDirectory.set(file("build/libs"))
-    manifest {
-        attributes("Zomboid-Version-Id": zomboid_version)
-    }
-}
+// There's no reason to use this over merged yarn jar.
+//tasks.register('v2UnmergedYarnJar', Jar) {
+//    dependsOn combineUnpickDefinitions
+//
+//    def mappings = completeMappings.outputFile
+//
+//    group = "mapping build"
+//    archiveFileName = "yarn-${yarnVersion}-v2.jar"
+//
+//    from(file(mappings)) {
+//        rename mappings.name, "mappings/mappings.tiny"
+//    }
+//    from(combineUnpickDefinitions.output) {
+//        rename combineUnpickDefinitions.output.get().asFile.name, "extras/definitions.unpick"
+//    }
+//    from(file(unpickMetaFile)) {
+//        expand version: project.unpick_version
+//        rename unpickMetaFile.name, "extras/unpick.json"
+//    }
+//    destinationDirectory.set(file("build/libs"))
+//    manifest {
+//        attributes("Zomboid-Version-Id": zomboid_version)
+//    }
+//}
 
 // Combines the unpick defs and unpick meta into a jar
 tasks.register('v2MergedYarnJar', Jar) {
+    dependsOn completeMappings
+
+    def mappings = completeMappings.outputFile
+
     group = "mapping build"
     archiveFileName = "yarn-${yarnVersion}-mergedv2.jar"
 
+    from(file(mappings)) {
+        rename mappings.name, "mappings/mappings.tiny"
+    }
     from(combineUnpickDefinitions.output) {
         rename combineUnpickDefinitions.output.get().asFile.name, "extras/definitions.unpick"
     }
@@ -501,7 +518,7 @@ check.dependsOn javadocLint
 publishing {
     publications {
         register("maven", MavenPublication) {
-            groupId 'net.fabricmc'
+            groupId 'net.aoqia'
             artifactId "yarn"
             version yarnVersion
 
@@ -510,9 +527,9 @@ publishing {
                 builtBy compressTiny
             }
             artifact(tinyJar)
-            artifact(v2UnmergedYarnJar) {
-                classifier "v2"
-            }
+//            artifact(v2UnmergedYarnJar) {
+//                classifier "v2"
+//            }
             artifact(v2MergedYarnJar) {
                 classifier "mergedv2"
             }
