@@ -1,4 +1,10 @@
 CLASS zombie/characters/IsoPlayer
+	METHOD <init> (Lzombie/iso/IsoCell;Lzombie/characters/SurvivorDesc;III)V
+		ARG 1 cell
+		ARG 2 desc
 	METHOD setInstance (Lzombie/characters/IsoPlayer;)V
 		ARG 0 inst
 			COMMENT test comment
+CLASS zombie/iso/IsoObject
+	METHOD <init> (Lzombie/iso/IsoCell;)V
+		ARG 1 cell

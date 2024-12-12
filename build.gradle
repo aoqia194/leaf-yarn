@@ -250,8 +250,7 @@ tasks.register('constantsJar', Jar) {
     archiveClassifier = "constants"
 }
 
-//tasks.build.dependsOn "compressTiny", "tinyJar", "v2UnmergedYarnJar", "v2MergedYarnJar", "javadocJar"
-tasks.build.dependsOn "compressTiny", "tinyJar", "v2MergedYarnJar", "javadocJar"
+tasks.build.dependsOn "compressTiny", "tinyJar", "v2UnmergedYarnJar", "v2MergedYarnJar", "javadocJar"
 
 combineUnpickDefinitions {
     group = 'unpick'
@@ -295,37 +294,36 @@ tasks.register('sourcesJar', Jar) {
 build.dependsOn constantsJar
 
 // Combines the combined unpick defs and unpick meta file into a jar
-// There's no reason to use this over merged yarn jar.
-//tasks.register('v2UnmergedYarnJar', Jar) {
-//    dependsOn combineUnpickDefinitions
-//
-//    def mappings = completeMappings.outputFile
-//
-//    group = "mapping build"
-//    archiveFileName = "yarn-${yarnVersion}-v2.jar"
-//
-//    from(file(mappings)) {
-//        rename mappings.name, "mappings/mappings.tiny"
-//    }
-//    from(combineUnpickDefinitions.output) {
-//        rename combineUnpickDefinitions.output.get().asFile.name, "extras/definitions.unpick"
-//    }
-//    from(file(unpickMetaFile)) {
-//        expand version: project.unpick_version
-//        rename unpickMetaFile.name, "extras/unpick.json"
-//    }
-//    destinationDirectory.set(file("build/libs"))
-//    manifest {
-//        attributes("Zomboid-Version-Id": zomboid_version)
-//    }
-//}
+// There's no reason to use this over merged yarn jar but I keep it to not break shit..
+// Its the same as the merged jar.
+tasks.register('v2UnmergedYarnJar', Jar) {
+    dependsOn completeMappings
+
+    def mappings = completeMappings.output
+    group = "mapping build"
+    archiveFileName = "yarn-${yarnVersion}-v2.jar"
+
+    from(file(mappings)) {
+        rename mappings.get().asFile.name, "mappings/mappings.tiny"
+    }
+    from(combineUnpickDefinitions.output) {
+        rename combineUnpickDefinitions.output.get().asFile.name, "extras/definitions.unpick"
+    }
+    from(file(unpickMetaFile)) {
+        expand version: project.unpick_version
+        rename unpickMetaFile.name, "extras/unpick.json"
+    }
+    destinationDirectory.set(file("build/libs"))
+    manifest {
+        attributes("Zomboid-Version-Id": zomboid_version)
+    }
+}
 
 // Combines the unpick defs and unpick meta into a jar
 tasks.register('v2MergedYarnJar', Jar) {
     dependsOn completeMappings
 
     def mappings = completeMappings.outputFile
-
     group = "mapping build"
     archiveFileName = "yarn-${yarnVersion}-mergedv2.jar"
 
@@ -527,9 +525,9 @@ publishing {
                 builtBy compressTiny
             }
             artifact(tinyJar)
-//            artifact(v2UnmergedYarnJar) {
-//                classifier "v2"
-//            }
+            artifact(v2UnmergedYarnJar) {
+                classifier "v2"
+            }
             artifact(v2MergedYarnJar) {
                 classifier "mergedv2"
             }
