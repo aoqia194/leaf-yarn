@@ -72,7 +72,7 @@ def unpickMetaFile = file("unpick-definitions/unpick.json")
 dependencies {
     enigmaRuntime "cuchaz:enigma-swing:${project.enigma_version}"
     enigmaRuntime "net.fabricmc:cfr:${project.cfr_version}"
-    // javadocClasspath "net.aoqia:leaf-loader:${project.leaf_loader_version}"
+    javadocClasspath "net.aoqia:leaf-loader:${project.leaf_loader_version}"
     javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
     javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations
     decompileClasspath "net.fabricmc:cfr:${project.cfr_version}"
@@ -83,7 +83,7 @@ dependencies {
     asm "org.ow2.asm:asm-util:${project.asm_version}"
 }
 
-def yarnGroup = "yarn"
+def yarnGroup = "leaf-yarn"
 def buildMappingGroup = "mapping build"
 def mapJarGroup = "jar mapping"
 def mappingsDir = file("mappings")
@@ -517,7 +517,7 @@ publishing {
     publications {
         register("maven", MavenPublication) {
             groupId 'net.aoqia'
-            artifactId "yarn"
+            artifactId "leaf-yarn"
             version yarnVersion
 
             artifact(compressTiny.output) {

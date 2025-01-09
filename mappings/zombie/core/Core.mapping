@@ -1,0 +1,3 @@
+CLASS zombie/core/Core
+	METHOD getKey (Ljava/lang/String;)I
+		ARG 1 key

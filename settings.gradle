@@ -16,6 +16,6 @@ if (!JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)) {
 
 enableFeaturePreview "STABLE_CONFIGURATION_CACHE"
 
-rootProject.name = "yarn"
+rootProject.name = "leaf-yarn"
 
 includeBuild 'filament'
