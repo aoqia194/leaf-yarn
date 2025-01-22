@@ -8,6 +8,7 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Reader;
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Writer;
@@ -68,11 +69,14 @@ public abstract class CombineUnpickDefinitionsTask extends DefaultTask {
                 List<File> files = new ArrayList<>(getParameters().getInput().getAsFileTree().getFiles());
                 files.sort(Comparator.comparing(File::getName));
 
-                for (File file : files) {
-                    if (!file.getName().endsWith(".unpick")) {
-                        continue;
-                    }
+                files = files.stream().filter(f -> f.getName().endsWith(".unpick")).toList();
+                // This means no unpick files exist. So don't create the output file.
+                if (files.isEmpty()) {
+                    System.out.println("No unpick files found.");
+                    return;
+                }
 
+                for (File file : files) {
                     try (UnpickV2Reader reader = new UnpickV2Reader(new FileInputStream(file))) {
                         reader.accept(writer);
                     }

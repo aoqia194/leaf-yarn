@@ -50,15 +50,13 @@ public final class FilamentGradlePlugin implements Plugin<Project> {
         });
 
         var cleanFilament = tasks.register("cleanFilament",
-            Delete.class,
-            task -> task.delete(extension.getCacheDirectory()));
+            Delete.class, task -> task.delete(extension.getCacheDirectory()));
         tasks.named("clean", task -> task.dependsOn(cleanFilament));
 
-        // var zomboidLibraries = project.getConfigurations().register("zomboidLibraries");
+//        var zomboidLibraries = project.getConfigurations().register("zomboidLibraries");
+        var zomboidLibraries = project.getConfigurations().getByName("zomboidLibraries");
         GradleUtils.afterSuccessfulEvaluation(project, () -> {
-            var zomboidLibraries = project.getConfigurations().getByName("zomboidLibraries");
             var name = zomboidLibraries.getName();
-
             for (Dependency dependency : getDependencies(metaProvider.get(), project.getDependencies())) {
                 project.getDependencies().add(name, dependency);
             }

@@ -72,7 +72,7 @@ def unpickMetaFile = file("unpick-definitions/unpick.json")
 dependencies {
     enigmaRuntime "cuchaz:enigma-swing:${project.enigma_version}"
     enigmaRuntime "net.fabricmc:cfr:${project.cfr_version}"
-    javadocClasspath "net.aoqia:leaf-loader:${project.leaf_loader_version}"
+//    javadocClasspath "net.aoqia:leaf-loader:${project.leaf_loader_version}"
     javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
     javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations
     decompileClasspath "net.fabricmc:cfr:${project.cfr_version}"
@@ -294,7 +294,7 @@ tasks.register('sourcesJar', Jar) {
 build.dependsOn constantsJar
 
 // Combines the combined unpick defs and unpick meta file into a jar
-// There's no reason to use this over merged yarn jar but I keep it to not break shit..
+// There's no reason to use this over merged yarn jar but I keep it to not break shit (genSources uses it I think)
 // Its the same as the merged jar.
 tasks.register('v2UnmergedYarnJar', Jar) {
     dependsOn completeMappings
@@ -454,7 +454,7 @@ javadoc {
             'https://commons.apache.org/proper/commons-codec/archives/1.15/apidocs/',
             'https://commons.apache.org/proper/commons-compress/apidocs/',
             'https://hc.apache.org/httpcomponents-client-4.5.x/current/httpclient/apidocs/',
-            // "https://maven.fabricmc.net/docs/fabric-loader-${project.fabric_loader_version}/",
+            "https://maven.aoqia.net/docs/leaf-loader-${project.leaf_loader_version}/",
             "https://projectzomboid.com/modding/",
             "https://docs.oracle.com/en/java/javase/21/docs/api/"
         )
