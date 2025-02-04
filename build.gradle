@@ -16,7 +16,7 @@ plugins {
     id 'java' // for constants, packages, javadoc
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.21.0"
-    id "leaf-loom" version "1.9.local"
+    id "leaf-loom" version "0.1.local"
     id 'net.aoqia.filament'
 }
 
