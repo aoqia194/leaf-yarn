@@ -1,9 +1,9 @@
-package net.aoqia.filament.task.mappingio;
+package dev.aoqia.filament.task.mappingio;
 
 import java.io.IOException;
 
-import net.aoqia.filament.task.base.FilamentTask;
-import net.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.WithFileOutput;
 import net.fabricmc.mappingio.MappingWriter;
 import net.fabricmc.mappingio.format.MappingFormat;
 import org.gradle.api.provider.Property;

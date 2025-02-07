@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import java.util.*;
 import java.util.function.UnaryOperator;
 
 import com.squareup.javapoet.*;
-import net.aoqia.filament.mappingpoet.signature.ClassSignature;
-import net.aoqia.filament.mappingpoet.signature.MethodSignature;
+import dev.aoqia.filament.mappingpoet.signature.ClassSignature;
+import dev.aoqia.filament.mappingpoet.signature.MethodSignature;
 
 public final class Signatures {
     public static ClassSignature parseClassSignature(final String signature) {

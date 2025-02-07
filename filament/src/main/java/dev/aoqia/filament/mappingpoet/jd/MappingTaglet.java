@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet.jd;
+package dev.aoqia.filament.mappingpoet.jd;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;

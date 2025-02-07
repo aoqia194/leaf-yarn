@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.squareup.javapoet.*;
-import net.aoqia.filament.mappingpoet.signature.*;
+import dev.aoqia.filament.mappingpoet.signature.*;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.TypeReference;
 import org.objectweb.asm.tree.*;
 
-import static net.aoqia.filament.mappingpoet.FieldBuilder.parseAnnotation;
+import static dev.aoqia.filament.mappingpoet.FieldBuilder.parseAnnotation;
 
 public class ClassBuilder {
     static final Handle OBJ_MTH_BOOTSTRAP = new Handle(

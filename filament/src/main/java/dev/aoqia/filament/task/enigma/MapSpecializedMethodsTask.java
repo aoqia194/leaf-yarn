@@ -1,11 +1,11 @@
-package net.aoqia.filament.task.enigma;
+package dev.aoqia.filament.task.enigma;
 
 import javax.inject.Inject;
 import java.util.List;
 
 import cuchaz.enigma.command.Command;
 import cuchaz.enigma.command.MapSpecializedMethodsCommand;
-import net.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.filament.task.base.WithFileOutput;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import javax.lang.model.element.Modifier;
 import java.util.ArrayList;

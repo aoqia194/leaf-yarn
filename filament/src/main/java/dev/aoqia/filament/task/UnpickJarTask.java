@@ -1,4 +1,4 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import daomephsta.unpick.cli.Main;
-import net.aoqia.filament.task.base.FilamentTask;
-import net.aoqia.filament.task.base.WithFileInput;
-import net.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.WithFileInput;
+import dev.aoqia.filament.task.base.WithFileOutput;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.tasks.InputFile;

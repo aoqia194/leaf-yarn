@@ -1,13 +1,13 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import net.aoqia.filament.task.base.FilamentTask;
-import net.aoqia.filament.task.base.WithFileOutput;
-import net.aoqia.loom.util.copygamefile.CopyGameFile;
-import net.aoqia.loom.util.copygamefile.CopyGameFileBuilder;
+import dev.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.loom.util.copygamefile.CopyGameFile;
+import dev.aoqia.loom.util.copygamefile.CopyGameFileBuilder;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;

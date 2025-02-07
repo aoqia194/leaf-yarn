@@ -1,4 +1,4 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -8,8 +8,8 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import net.aoqia.filament.task.base.WithFileInput;
-import net.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.filament.task.base.WithFileInput;
+import dev.aoqia.filament.task.base.WithFileOutput;
 import net.fabricmc.tinyremapper.OutputConsumerPath;
 import net.fabricmc.tinyremapper.TinyRemapper;
 import net.fabricmc.tinyremapper.TinyUtils;

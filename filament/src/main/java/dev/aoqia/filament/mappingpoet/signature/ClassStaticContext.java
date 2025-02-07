@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet.signature;
+package dev.aoqia.filament.mappingpoet.signature;
 
 /**
  * A context to retrieve if a class is an instance inner class. Useful for placing type annotations correctly. See

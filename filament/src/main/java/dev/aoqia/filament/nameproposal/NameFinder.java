@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.nameproposal;
+package dev.aoqia.filament.nameproposal;
 
 import java.util.HashMap;
 import java.util.List;

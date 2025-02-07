@@ -16,8 +16,8 @@ plugins {
     id 'java' // for constants, packages, javadoc
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.21.0"
-    id "leaf-loom" version "0.1.local"
-    id 'net.aoqia.filament'
+    id "leaf-loom" version "0.1.0.local"
+    id 'dev.aoqia.filament'
 }
 
 def zomboid_version = "41.78.16"
@@ -72,7 +72,7 @@ def unpickMetaFile = file("unpick-definitions/unpick.json")
 dependencies {
     enigmaRuntime "cuchaz:enigma-swing:${project.enigma_version}"
     enigmaRuntime "net.fabricmc:cfr:${project.cfr_version}"
-//    javadocClasspath "net.aoqia:leaf-loader:${project.leaf_loader_version}"
+//    javadocClasspath "dev.aoqia:leaf-loader:${project.leaf_loader_version}"
     javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
     javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations
     decompileClasspath "net.fabricmc:cfr:${project.cfr_version}"
@@ -98,12 +98,12 @@ import java.util.zip.GZIPOutputStream
 
 import cuchaz.enigma.command.CheckMappingsCommand
 import groovy.xml.XmlSlurper
-import net.aoqia.filament.task.MapJarTask
-import net.aoqia.filament.task.MappingPoetTask
-import net.aoqia.filament.task.base.WithFileInput
-import net.aoqia.filament.task.base.WithFileOutput
-import net.aoqia.filament.task.enigma.MapSpecializedMethodsTask
-import net.aoqia.filament.task.mappingio.*
+import dev.aoqia.filament.task.MapJarTask
+import dev.aoqia.filament.task.MappingPoetTask
+import dev.aoqia.filament.task.base.WithFileInput
+import dev.aoqia.filament.task.base.WithFileOutput
+import dev.aoqia.filament.task.enigma.MapSpecializedMethodsTask
+import dev.aoqia.filament.task.mappingio.*
 import net.fabricmc.mappingio.format.MappingFormat
 import org.gradle.work.DisableCachingByDefault
 import com.diffplug.spotless.LineEnding
@@ -427,7 +427,7 @@ javadoc {
             'implSpec:a:Implementation Requirements:',
             'implNote:a:Implementation Note:'
         )
-        taglets "net.aoqia.filament.mappingpoet.jd.MappingTaglet"
+        taglets "dev.aoqia.filament.mappingpoet.jd.MappingTaglet"
         // taglet path, header, extra stylesheet settings deferred
         it.use()
 
@@ -455,8 +455,8 @@ javadoc {
             'https://commons.apache.org/proper/commons-compress/apidocs/',
             'https://hc.apache.org/httpcomponents-client-4.5.x/current/httpclient/apidocs/',
             "https://maven.aoqia.net/docs/leaf-loader-${project.leaf_loader_version}/",
-            "https://projectzomboid.com/modding/",
-            "https://docs.oracle.com/en/java/javase/21/docs/api/"
+//            "https://projectzomboid.com/modding/",
+            "https://docs.oracle.com/en/java/javase/21/docs/api/",
         )
         // https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.
         // html#additional-options-provided-by-the-standard-doclet
@@ -516,7 +516,7 @@ check.dependsOn javadocLint
 publishing {
     publications {
         register("maven", MavenPublication) {
-            groupId 'net.aoqia'
+            groupId 'dev.aoqia'
             artifactId "leaf-yarn"
             version yarnVersion
 

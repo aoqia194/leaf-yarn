@@ -1,11 +1,11 @@
-package net.aoqia.filament;
+package dev.aoqia.filament;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.aoqia.filament.task.*;
-import net.aoqia.filament.task.base.WithFileOutput;
-import net.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
-import net.aoqia.loom.util.gradle.GradleUtils;
+import dev.aoqia.filament.task.*;
+import dev.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
+import dev.aoqia.loom.util.gradle.GradleUtils;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Dependency;

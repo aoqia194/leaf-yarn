@@ -1,4 +1,4 @@
-package net.aoqia.filament.task.mappingio;
+package dev.aoqia.filament.task.mappingio;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.aoqia.filament.task.base.FilamentTask;
-import net.aoqia.filament.task.base.WithFileInput;
+import dev.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.WithFileInput;
 import net.fabricmc.mappingio.MappedElementKind;
 import net.fabricmc.mappingio.MappingReader;
 import net.fabricmc.mappingio.MappingVisitor;

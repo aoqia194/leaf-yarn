@@ -1,11 +1,11 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import java.io.*;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import net.aoqia.filament.util.FileUtil;
+import dev.aoqia.filament.util.FileUtil;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFileProperty;
@@ -98,4 +98,3 @@ public class GeneratePackageInfoMappingsTask extends DefaultTask {
         }
     }
 }
-

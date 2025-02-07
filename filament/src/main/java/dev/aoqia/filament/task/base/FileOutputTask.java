@@ -1,4 +1,4 @@
-package net.aoqia.filament.task.base;
+package dev.aoqia.filament.task.base;
 
 public abstract class FileOutputTask extends FilamentTask implements WithFileOutput {
 }

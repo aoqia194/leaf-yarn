@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.nameproposal;
+package dev.aoqia.filament.nameproposal;
 
 import org.objectweb.asm.Opcodes;
 

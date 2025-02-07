@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.nameproposal.enigma;
+package dev.aoqia.filament.nameproposal.enigma;
 
 import cuchaz.enigma.api.EnigmaPlugin;
 import cuchaz.enigma.api.EnigmaPluginContext;

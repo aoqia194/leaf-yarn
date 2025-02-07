@@ -1,11 +1,11 @@
-package net.aoqia.filament;
+package dev.aoqia.filament;
 
 import javax.inject.Inject;
 import java.io.File;
 
-import net.aoqia.filament.util.ZomboidVersionMetaHelper;
-import net.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
-import net.aoqia.loom.util.MirrorUtil;
+import dev.aoqia.filament.util.ZomboidVersionMetaHelper;
+import dev.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
+import dev.aoqia.loom.util.MirrorUtil;
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;

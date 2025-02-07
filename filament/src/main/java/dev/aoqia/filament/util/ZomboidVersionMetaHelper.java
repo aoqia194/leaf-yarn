@@ -1,15 +1,15 @@
-package net.aoqia.filament.util;
+package dev.aoqia.filament.util;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 
-import net.aoqia.filament.FilamentExtension;
-import net.aoqia.filament.FilamentGradlePlugin;
-import net.aoqia.loom.configuration.providers.zomboid.VersionsManifest;
-import net.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
-import net.aoqia.loom.util.download.Download;
+import dev.aoqia.filament.FilamentExtension;
+import dev.aoqia.filament.FilamentGradlePlugin;
+import dev.aoqia.loom.configuration.providers.zomboid.VersionsManifest;
+import dev.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
+import dev.aoqia.loom.util.download.Download;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 

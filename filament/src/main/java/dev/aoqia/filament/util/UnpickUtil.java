@@ -1,4 +1,4 @@
-package net.aoqia.filament.util;
+package dev.aoqia.filament.util;
 
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Writer;
 

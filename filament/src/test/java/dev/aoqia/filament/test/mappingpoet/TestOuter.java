@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.test.mappingpoet;
+package dev.aoqia.filament.test.mappingpoet;
 
 import java.util.Comparator;
 import java.util.Map;

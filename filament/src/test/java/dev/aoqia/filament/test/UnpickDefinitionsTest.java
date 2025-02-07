@@ -1,4 +1,4 @@
-package net.aoqia.filament.test;
+package dev.aoqia.filament.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

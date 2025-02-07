@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +27,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.squareup.javapoet.JavaFile;
-import net.aoqia.filament.mappingpoet.Environment.ClassNamePointer;
-import net.aoqia.filament.mappingpoet.Environment.NestedClassInfo;
+import dev.aoqia.filament.mappingpoet.Environment.ClassNamePointer;
+import dev.aoqia.filament.mappingpoet.Environment.NestedClassInfo;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;

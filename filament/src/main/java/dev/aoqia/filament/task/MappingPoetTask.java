@@ -1,8 +1,8 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import java.io.File;
 
-import net.aoqia.filament.mappingpoet.MappingPoet;
+import dev.aoqia.filament.mappingpoet.MappingPoet;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.DirectoryProperty;

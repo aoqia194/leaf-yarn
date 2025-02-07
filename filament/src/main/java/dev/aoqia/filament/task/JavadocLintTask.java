@@ -1,4 +1,4 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import cuchaz.enigma.translation.mapping.tree.EntryTree;
 import cuchaz.enigma.translation.representation.entry.Entry;
 import cuchaz.enigma.translation.representation.entry.LocalVariableEntry;
 import cuchaz.enigma.translation.representation.entry.MethodEntry;
-import net.aoqia.filament.util.FileUtil;
+import dev.aoqia.filament.util.FileUtil;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.ConfigurableFileCollection;

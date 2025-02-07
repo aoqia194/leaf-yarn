@@ -8,6 +8,6 @@
  *
  * <p><strong>Warning:</strong> These classes are absent at runtime. They are exclusively
  * for use during compile time, in which the Java Compiler will replace the field references
- * with <a href="{@docRoot}/constant-values.html#net.aoqia">constant values</a>.
+ * with <a href="{@docRoot}/constant-values.html#dev.aoqia">constant values</a>.
  */
-package net.aoqia.yarn.constants;
+package dev.aoqia.yarn.constants;

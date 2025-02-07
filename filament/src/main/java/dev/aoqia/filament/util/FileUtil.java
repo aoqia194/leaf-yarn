@@ -1,4 +1,4 @@
-package net.aoqia.filament.util;
+package dev.aoqia.filament.util;
 
 import java.io.File;
 import java.io.IOException;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet;
+package dev.aoqia.filament.mappingpoet;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
 import com.squareup.javapoet.ClassName;
-import net.aoqia.filament.mappingpoet.signature.ClassStaticContext;
+import dev.aoqia.filament.mappingpoet.signature.ClassStaticContext;
 
 /**
  * Represents an overall runtime environment, knows all inner class, super class, etc. information.

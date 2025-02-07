@@ -1,8 +1,8 @@
-package net.aoqia.filament.task.base;
+package dev.aoqia.filament.task.base;
 
 import javax.inject.Inject;
 
-import net.aoqia.filament.FilamentExtension;
+import dev.aoqia.filament.FilamentExtension;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.Internal;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet.signature;
+package dev.aoqia.filament.mappingpoet.signature;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
-import net.aoqia.filament.mappingpoet.Signatures;
+import dev.aoqia.filament.mappingpoet.Signatures;
 import org.objectweb.asm.TypePath;
 import org.objectweb.asm.TypeReference;
 

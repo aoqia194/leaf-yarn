@@ -1,10 +1,10 @@
-package net.aoqia.filament.task.enigma;
+package dev.aoqia.filament.task.enigma;
 
 import javax.inject.Inject;
 import java.util.List;
 
 import cuchaz.enigma.command.Command;
-import net.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.FilamentTask;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Internal;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.mappingpoet.signature;
+package dev.aoqia.filament.mappingpoet.signature;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
 import com.squareup.javapoet.*;
-import net.aoqia.filament.mappingpoet.Signatures;
+import dev.aoqia.filament.mappingpoet.Signatures;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.TypePath;
 import org.objectweb.asm.signature.SignatureVisitor;

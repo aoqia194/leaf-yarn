@@ -7,7 +7,7 @@ plugins {
 	id 'maven-publish'
 }
 
-group = 'net.aoqia'
+group = 'dev.aoqia'
 version = project.filament_version
 
 def ENV = System.getenv()
@@ -40,7 +40,7 @@ dependencies {
 	implementation 'net.fabricmc:javapoet:0.1.1'
 
 	// Contains a number of useful utilities we can re-use.
-	implementation ("net.aoqia:leaf-loom:0.1.local") {
+	implementation ("dev.aoqia:leaf-loom:0.1.0.local") {
 		transitive = false
 	}
 
@@ -73,8 +73,8 @@ test {
 gradlePlugin {
 	plugins {
 		filament {
-			id = 'net.aoqia.filament'
-			implementationClass = 'net.aoqia.filament.FilamentGradlePlugin'
+			id = 'dev.aoqia.filament'
+			implementationClass = 'dev.aoqia.filament.FilamentGradlePlugin'
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -14,8 +14,8 @@ import daomephsta.unpick.constantmappers.datadriven.parser.MethodKey;
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Reader;
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Remapper;
 import daomephsta.unpick.constantmappers.datadriven.parser.v2.UnpickV2Writer;
-import net.aoqia.filament.util.FileUtil;
-import net.aoqia.filament.util.UnpickUtil;
+import dev.aoqia.filament.util.FileUtil;
+import dev.aoqia.filament.util.UnpickUtil;
 import net.fabricmc.mappingio.MappingReader;
 import net.fabricmc.mappingio.tree.MappingTree;
 import net.fabricmc.mappingio.tree.MemoryMappingTree;

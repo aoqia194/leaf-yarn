@@ -1,4 +1,4 @@
-package net.aoqia.filament.task.mappingio;
+package dev.aoqia.filament.task.mappingio;
 
 import java.io.File;
 import java.io.IOException;

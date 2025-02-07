@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.nameproposal.enigma;
+package dev.aoqia.filament.nameproposal.enigma;
 
 import java.util.Map;
 import java.util.Objects;
@@ -29,8 +29,8 @@ import cuchaz.enigma.translation.mapping.EntryRemapper;
 import cuchaz.enigma.translation.representation.entry.Entry;
 import cuchaz.enigma.translation.representation.entry.FieldEntry;
 import cuchaz.enigma.translation.representation.entry.MethodEntry;
-import net.aoqia.filament.nameproposal.MappingEntry;
-import net.aoqia.filament.nameproposal.NameFinder;
+import dev.aoqia.filament.nameproposal.MappingEntry;
+import dev.aoqia.filament.nameproposal.NameFinder;
 import org.objectweb.asm.tree.ClassNode;
 
 public class EnigmaNameProposalService implements JarIndexerService, NameProposalService {

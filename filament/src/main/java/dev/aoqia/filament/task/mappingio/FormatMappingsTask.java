@@ -1,10 +1,10 @@
-package net.aoqia.filament.task.mappingio;
+package dev.aoqia.filament.task.mappingio;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import net.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.FilamentTask;
 import net.fabricmc.mappingio.MappingReader;
 import net.fabricmc.mappingio.MappingWriter;
 import net.fabricmc.mappingio.format.MappingFormat;

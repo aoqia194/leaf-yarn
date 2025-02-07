@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.aoqia.filament.test.mappingpoet;
+package dev.aoqia.filament.test.mappingpoet;
 
 import java.net.URLClassLoader;
 import java.util.Collections;
@@ -33,13 +33,13 @@ import com.squareup.javapoet.WildcardTypeName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.objectweb.asm.signature.SignatureReader;
-import net.aoqia.filament.mappingpoet.signature.ClassSignature;
-import net.aoqia.filament.mappingpoet.signature.MethodSignature;
-import net.aoqia.filament.mappingpoet.signature.PoetClassMethodSignatureVisitor;
-import net.aoqia.filament.mappingpoet.signature.PoetTypeSignatureWriter;
-import net.aoqia.filament.mappingpoet.signature.TypeAnnotationBank;
-import net.aoqia.filament.mappingpoet.signature.TypeAnnotationMapping;
-import net.aoqia.filament.mappingpoet.Signatures;
+import dev.aoqia.filament.mappingpoet.signature.ClassSignature;
+import dev.aoqia.filament.mappingpoet.signature.MethodSignature;
+import dev.aoqia.filament.mappingpoet.signature.PoetClassMethodSignatureVisitor;
+import dev.aoqia.filament.mappingpoet.signature.PoetTypeSignatureWriter;
+import dev.aoqia.filament.mappingpoet.signature.TypeAnnotationBank;
+import dev.aoqia.filament.mappingpoet.signature.TypeAnnotationMapping;
+import dev.aoqia.filament.mappingpoet.Signatures;
 
 public class SignaturesTest {
 	@Test

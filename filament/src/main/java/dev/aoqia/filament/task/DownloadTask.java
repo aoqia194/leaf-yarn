@@ -1,12 +1,12 @@
-package net.aoqia.filament.task;
+package dev.aoqia.filament.task;
 
 import javax.inject.Inject;
 import java.net.URISyntaxException;
 
-import net.aoqia.filament.task.base.FilamentTask;
-import net.aoqia.filament.task.base.WithFileOutput;
-import net.aoqia.loom.util.download.Download;
-import net.aoqia.loom.util.download.DownloadException;
+import dev.aoqia.filament.task.base.FilamentTask;
+import dev.aoqia.filament.task.base.WithFileOutput;
+import dev.aoqia.loom.util.download.Download;
+import dev.aoqia.loom.util.download.DownloadException;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
