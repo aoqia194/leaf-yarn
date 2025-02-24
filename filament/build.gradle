@@ -7,9 +7,6 @@ plugins {
 	id 'maven-publish'
 }
 
-group = 'dev.aoqia'
-version = project.filament_version
-
 def ENV = System.getenv()
 
 // Needed to read the main projects properties
@@ -40,7 +37,7 @@ dependencies {
 	implementation 'net.fabricmc:javapoet:0.1.1'
 
 	// Contains a number of useful utilities we can re-use.
-	implementation ("dev.aoqia:leaf-loom:0.1.0.local") {
+	implementation ("${project.group}:loom:0.1.0.local") {
 		transitive = false
 	}
 

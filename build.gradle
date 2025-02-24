@@ -17,10 +17,8 @@ plugins {
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.21.0"
     id "leaf-loom" version "0.1.0.local"
-    id 'dev.aoqia.filament'
+    id "${project.group}.filament"
 }
-
-def zomboid_version = "41.78.16"
 
 loom {
     clientOnlyZomboidJar()
@@ -28,24 +26,23 @@ loom {
 
 dependencies {
     // Dummy zomboid dependency to generate game files n stuff from loom.
-    zomboid "com.theindiestone:zomboid:${zomboid_version}"
+    zomboid "com.theindiestone:zomboid:${project.zomboidVersion}"
 }
 
 filament {
-    zomboidVersion = zomboid_version
+    zomboidVersion = project.zomboidVersion
 }
 
 def ENV = System.getenv()
 // Fetch build number from Github Actions
 def build_number = ENV.BUILD_NUMBER ?: "local"
-
-def yarnVersion = "${zomboid_version}+build.$build_number"
+def yarnVersion = "${project.zomboidVersion}+build.$build_number"
 version = yarnVersion
 
 if (ENV.BRANCH_NAME) {
     def branch = ENV.BRANCH_NAME.substring(ENV.BRANCH_NAME.lastIndexOf('/') + 1)
-    if (zomboid_version != branch) {
-        throw new IllegalStateException("Branch name (${branch}) does not match the mc version (${zomboid_version})")
+    if (project.zomboidVersion != branch) {
+        throw new IllegalStateException("Branch name (${branch}) does not match the mc version (${project.zomboidVersion})")
     }
 }
 
@@ -83,7 +80,6 @@ dependencies {
     asm "org.ow2.asm:asm-util:${project.asm_version}"
 }
 
-def yarnGroup = "leaf-yarn"
 def buildMappingGroup = "mapping build"
 def mapJarGroup = "jar mapping"
 def mappingsDir = file("mappings")
@@ -97,13 +93,18 @@ def zomboidLibraries = configurations.zomboidLibraries
 import java.util.zip.GZIPOutputStream
 
 import cuchaz.enigma.command.CheckMappingsCommand
+import dev.aoqia.leaf.filament.task.mappingio.CheckMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.CheckMergedMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.CompleteMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.ConvertMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.FormatMappingsTask
 import groovy.xml.XmlSlurper
-import dev.aoqia.filament.task.MapJarTask
-import dev.aoqia.filament.task.MappingPoetTask
-import dev.aoqia.filament.task.base.WithFileInput
-import dev.aoqia.filament.task.base.WithFileOutput
-import dev.aoqia.filament.task.enigma.MapSpecializedMethodsTask
-import dev.aoqia.filament.task.mappingio.*
+import dev.aoqia.leaf.filament.task.MapJarTask
+import dev.aoqia.leaf.filament.task.MappingPoetTask
+import dev.aoqia.leaf.filament.task.base.WithFileInput
+import dev.aoqia.leaf.filament.task.base.WithFileOutput
+import dev.aoqia.leaf.filament.task.enigma.MapSpecializedMethodsTask
+import dev.aoqia.leaf.filament.task.mappingio.*
 import net.fabricmc.mappingio.format.MappingFormat
 import org.gradle.work.DisableCachingByDefault
 import com.diffplug.spotless.LineEnding
@@ -111,13 +112,13 @@ import com.diffplug.spotless.LineEnding
 tasks.register('yarn', EnigmaTask) {
     // dependsOn mapIntermediaryJar
     dependsOn getOfficialJar
-    group = yarnGroup
+    group = project.group
     jar = getOfficialJar.output
     mappings = mappingsDir
 }
 
 //tasks.register('yarnServer', EnigmaTask) {
-//    group = yarnGroup
+//    group = project.group
 //    jar = mapServerNamedJar.output
 //    mappings = mappingsDir
 //}
@@ -207,7 +208,7 @@ tasks.register('tinyJar', Jar) {
     }
 
     manifest {
-        attributes("Zomboid-Version-Id": zomboid_version)
+        attributes("Zomboid-Version-Id": project.zomboidVersion)
     }
 }
 
@@ -315,7 +316,7 @@ tasks.register('v2UnmergedYarnJar', Jar) {
     }
     destinationDirectory.set(file("build/libs"))
     manifest {
-        attributes("Zomboid-Version-Id": zomboid_version)
+        attributes("Zomboid-Version-Id": project.zomboidVersion)
     }
 }
 
@@ -339,7 +340,7 @@ tasks.register('v2MergedYarnJar', Jar) {
     }
     destinationDirectory.set(file("build/libs"))
     manifest {
-        attributes("Zomboid-Version-Id": zomboid_version)
+        attributes("Zomboid-Version-Id": project.zomboidVersion)
     }
 }
 
@@ -347,7 +348,7 @@ tasks.register('v2MergedYarnJar', Jar) {
 // CUSTOM: Takes the official jar and outputs a named jar for external tools.
 tasks.register('mapNamedJar', MapJarTask) {
     group = mapJarGroup
-    output = layout.buildDirectory.file("${zomboid_version}-named.jar")
+    output = layout.buildDirectory.file("${project.zomboidVersion}-named.jar")
     input = getOfficialJar.output
     mappings = completeMappings.output
     classpath.from zomboidLibraries
