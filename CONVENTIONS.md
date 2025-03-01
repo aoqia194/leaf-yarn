@@ -1,5 +1,8 @@
 # Naming conventions
 
+Keep in mind that these conventions come from the original FabricMC/yarn project, and these do not necessarily apply to leaf-yarn.
+One of the key differences is that we don't need to rename classes or functions as Project Zomboid is not obfuscated like Minecraft is.
+
 ## General
 
 Use `UpperCamelCase` for class names. Use `lowerCamelCase` for method names, variable names, and names of fields that are not

@@ -1,1 +1,12 @@
-rootProject.name = 'filament'
+pluginManagement {
+    repositories {
+        maven {
+            name "Fabric Repository"
+            url 'https://maven.fabricmc.net'
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = name
