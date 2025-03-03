@@ -14,10 +14,15 @@ buildscript {
 plugins {
     id 'java' // for constants, packages, javadoc
     id "com.diffplug.spotless" version "6.21.0"
+    id 'dev.aoqia.leaf.loom'
     id 'dev.aoqia.leaf.filament'
     // Publishing to Maven Central
     id 'org.jreleaser' version '1.16.0'
     id 'maven-publish'
+}
+
+loom {
+    clientOnlyZomboidJar()
 }
 
 filament {
@@ -58,15 +63,20 @@ def unpickMetaFile = file("unpick-definitions/unpick.json")
 dependencies {
     enigmaRuntime "cuchaz:enigma-swing:${project.enigma_version}"
     enigmaRuntime "net.fabricmc:cfr:${project.cfr_version}"
-//    javadocClasspath "${project.group}:loader:${project.leaf_loader_version}"
-    javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
-    javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations
-    decompileClasspath "net.fabricmc:cfr:${project.cfr_version}"
-    decompileClasspath "org.vineflower:vineflower:${project.vineflower_version}"
     asm "org.ow2.asm:asm:${project.asm_version}"
     asm "org.ow2.asm:asm-tree:${project.asm_version}"
     asm "org.ow2.asm:asm-commons:${project.asm_version}"
     asm "org.ow2.asm:asm-util:${project.asm_version}"
+//    javadocClasspath "${project.group}:loader:${project.leaf_loader_version}"
+    javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
+    javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations
+    // Adding JUnit to decompiler classpath for javadoc bc zomboid doesnt include it
+    javadocClasspath "junit:junit:4.13.2"
+    // Decompiler Classpath (gets passed to decompilers)
+    decompileClasspath "net.fabricmc:cfr:${project.cfr_version}"
+    decompileClasspath "org.vineflower:vineflower:${project.vineflower_version}"
+    // Dummy dependency for loom
+    zomboid "com.theindiestone:zomboid:${project.zomboidVersion}"
 }
 
 def buildMappingGroup = "mapping build"
@@ -83,6 +93,11 @@ import java.util.zip.GZIPOutputStream
 
 import cuchaz.enigma.command.CheckMappingsCommand
 import groovy.xml.XmlSlurper
+import dev.aoqia.leaf.filament.task.mappingio.CheckMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.CheckMergedMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.CompleteMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.ConvertMappingsTask
+import dev.aoqia.leaf.filament.task.mappingio.FormatMappingsTask
 import dev.aoqia.leaf.filament.task.MapJarTask
 import dev.aoqia.leaf.filament.task.MappingPoetTask
 import dev.aoqia.leaf.filament.task.base.WithFileInput
@@ -346,7 +361,7 @@ tasks.register('mapNamedJar', MapJarTask) {
 
 def zomboidLibsDir = file('build/tmp/zomboidlibs')
 
-// Task to copy all the mc libs into a single directory.
+// Task to copy all the zomboid libs into a single directory.
 tasks.register('syncDependencies', Sync) {
     from zomboidLibraries
     into zomboidLibsDir
@@ -440,8 +455,9 @@ javadoc {
             'https://hc.apache.org/httpcomponents-client-4.5.x/current/httpclient/apidocs/',
             // TODO: Uncommend loader javadoc after yarn and loader release
 //            "https://javadoc.io/doc/dev.aoqia.leaf/loader/${project.leaf_loader_version}/",
-//            "https://projectzomboid.com/modding/",
+            "https://projectzomboid.com/modding/",
             "https://docs.oracle.com/en/java/javase/21/docs/api/",
+            "https://junit.org/junit4/javadoc/latest/"
         )
         // https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.
         // html#additional-options-provided-by-the-standard-doclet

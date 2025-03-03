@@ -1,10 +1,19 @@
 pluginManagement {
-	repositories {
+    // FIXME: Gradle is shit and wouldn't resolve it, so I had to add this block.
+    // PLEASE DO NOT USE THIS FOR AN EXTENDED PERIOD OF TIME. IT'S NOT GOOD.
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == 'dev.aoqia.leaf') {
+                useModule("${requested.id.namespace}:loom:0.1.0")
+            }
+        }
+    }
+    repositories {
 		maven {
 			name = 'Fabric'
 			url = 'https://maven.fabricmc.net/'
 		}
-		gradlePluginPortal()
+        gradlePluginPortal()
         mavenCentral()
 	}
 }
