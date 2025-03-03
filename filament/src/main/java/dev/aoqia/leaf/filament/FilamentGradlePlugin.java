@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.aoqia.leaf.filament.task.*;
 import dev.aoqia.leaf.filament.task.base.WithFileOutput;
-import dev.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
-import dev.aoqia.loom.util.gradle.GradleUtils;
+import dev.aoqia.leaf.loom.configuration.providers.zomboid.ZomboidVersionManifest;
+import dev.aoqia.leaf.loom.util.gradle.GradleUtils;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Dependency;
@@ -63,7 +63,7 @@ public final class FilamentGradlePlugin implements Plugin<Project> {
         });
     }
 
-    private Dependency[] getDependencies(ZomboidVersionMeta meta, DependencyHandler dependencyHandler) {
+    private Dependency[] getDependencies(ZomboidVersionManifest meta, DependencyHandler dependencyHandler) {
         return meta.libraries().stream()
             .filter(library -> library.artifact() != null)
             .map(library -> dependencyHandler.create(library.name()))

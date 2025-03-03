@@ -7,9 +7,9 @@ import java.nio.file.Path;
 
 import dev.aoqia.leaf.filament.FilamentExtension;
 import dev.aoqia.leaf.filament.FilamentGradlePlugin;
-import dev.aoqia.loom.configuration.providers.zomboid.VersionsManifest;
-import dev.aoqia.loom.configuration.providers.zomboid.ZomboidVersionMeta;
-import dev.aoqia.loom.util.download.Download;
+import dev.aoqia.leaf.loom.configuration.providers.zomboid.VersionsManifest;
+import dev.aoqia.leaf.loom.configuration.providers.zomboid.ZomboidVersionManifest;
+import dev.aoqia.leaf.loom.util.download.Download;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 
@@ -32,7 +32,7 @@ public abstract class ZomboidVersionMetaHelper {
 
     public abstract RegularFileProperty getVersionMetadataFile();
 
-    public ZomboidVersionMeta setup() throws IOException, URISyntaxException {
+    public ZomboidVersionManifest setup() throws IOException, URISyntaxException {
         // Only needed to access it at setup time because for whatever reason, getZomboidVersion
         final String zomboidVersion = getVersionMetadataFile().getAsFile().get().getParent();
 
@@ -63,6 +63,6 @@ public abstract class ZomboidVersionMetaHelper {
             .sha1(version.sha1)
             .downloadString(versionMetadataPath);
 
-        return FilamentGradlePlugin.GSON.fromJson(versionMetadata, ZomboidVersionMeta.class);
+        return FilamentGradlePlugin.GSON.fromJson(versionMetadata, ZomboidVersionManifest.class);
     }
 }

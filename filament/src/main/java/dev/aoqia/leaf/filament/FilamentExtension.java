@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import java.io.File;
 
 import dev.aoqia.leaf.filament.util.ZomboidVersionMetaHelper;
-import dev.aoqia.leaf.loom.loom.configuration.providers.zomboid.ZomboidVersionMeta;
+import dev.aoqia.leaf.loom.configuration.providers.zomboid.ZomboidVersionManifest;
 import dev.aoqia.leaf.loom.util.MirrorUtil;
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
@@ -15,7 +15,7 @@ import org.gradle.api.provider.Provider;
 
 public abstract class FilamentExtension {
     private final ZomboidVersionMetaHelper metaHelper;
-    private final Provider<ZomboidVersionMeta> metaProvider;
+    private final Provider<ZomboidVersionManifest> metaProvider;
 
     @Inject
     public FilamentExtension() {
@@ -52,7 +52,7 @@ public abstract class FilamentExtension {
             .fileValue(new File(getProject().getRootDir(), ".gradle/filament"));
     }
 
-    public Provider<ZomboidVersionMeta> getZomboidVersionMetadata() {
+    public Provider<ZomboidVersionManifest> getZomboidVersionMetadata() {
         return metaProvider;
     }
 }

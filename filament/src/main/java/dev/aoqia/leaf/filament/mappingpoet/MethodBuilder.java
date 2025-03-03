@@ -22,7 +22,6 @@ import java.util.*;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
-import dev.aoqia.filament.mappingpoet.signature.*;
 import dev.aoqia.leaf.filament.mappingpoet.signature.*;
 import org.objectweb.asm.TypeReference;
 import org.objectweb.asm.tree.AnnotationNode;

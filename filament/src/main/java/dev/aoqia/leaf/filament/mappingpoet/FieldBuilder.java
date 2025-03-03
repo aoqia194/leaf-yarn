@@ -19,7 +19,7 @@ package dev.aoqia.leaf.filament.mappingpoet;
 import java.util.*;
 
 import com.squareup.javapoet.*;
-import dev.aoqia.filament.mappingpoet.signature.*;
+import dev.aoqia.leaf.filament.mappingpoet.signature.*;
 import dev.aoqia.leaf.filament.mappingpoet.signature.*;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;

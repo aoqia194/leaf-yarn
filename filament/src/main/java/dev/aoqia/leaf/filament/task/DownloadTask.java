@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 
 import dev.aoqia.leaf.filament.task.base.FilamentTask;
 import dev.aoqia.leaf.filament.task.base.WithFileOutput;
-import dev.aoqia.loom.util.download.Download;
-import dev.aoqia.loom.util.download.DownloadException;
+import dev.aoqia.leaf.loom.util.download.Download;
+import dev.aoqia.leaf.loom.util.download.DownloadException;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;

@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import dev.aoqia.leaf.filament.task.base.FilamentTask;
 import dev.aoqia.leaf.filament.task.base.WithFileOutput;
-import dev.aoqia.loom.util.copygamefile.CopyGameFile;
-import dev.aoqia.loom.util.copygamefile.CopyGameFileBuilder;
+import dev.aoqia.leaf.loom.util.copygamefile.CopyGameFile;
+import dev.aoqia.leaf.loom.util.copygamefile.CopyGameFileBuilder;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
