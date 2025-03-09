@@ -1,34 +1,72 @@
 name: Build
-on: [push, pull_request]
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+  workflow_run:
+    workflows:
+      - manual
+    types:
+      - requested
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    strategy:
-      matrix:
-        java: [21-jdk]
-    runs-on: ubuntu-24.04
-    container:
-      image: eclipse-temurin:${{ matrix.java }}
-      options: --user root
+    name: Build
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: ./gradlew build javadocJar checkMappings --stacktrace --warning-mode fail
-      - run: ./gradlew formatMappings --stacktrace --warning-mode fail
-      - name: Check mapping format
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build
+        run: ./gradlew build -S --warning-mode fail
+
+      - name: Generate Javadoc Jar
+        run: ./gradlew javadocJar -S --warning-mode fail
+
+      - name: Check Mappings
+        run: ./gradlew checkMappings -S --warning-mode fail
+
+      - name: Format Mappings
+        run: ./gradlew formatMappings -S --warning-mode fail
+
+      - name: Check Uncommited Changes
         run: if [ -n "$(git status --porcelain)" ]; then exit 1; fi
-      - name: Build artifacts
-        if: ${{ matrix.java == '21-jdk' }}
+
+      - name: Upload Build Output
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: Artifacts
-          path: build/libs/
+          name: build-output
+          path: build/
+          retention-days: 7
+          if-no-files-found: error
+          overwrite: true
 
   test-build-logic:
-    runs-on: ubuntu-24.04
-    container:
-      image: eclipse-temurin:21-jdk
-      options: --user root
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - uses: gradle/wrapper-validation-action@v2
-      - run: ./gradlew :filament:build
+
+      - name: Build Filament
+        run: ./gradlew :filament:build -S
