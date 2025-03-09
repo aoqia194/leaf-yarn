@@ -32,6 +32,8 @@ jobs:
           name: build-output
           path: build/
 
+      # Generate the build number based on tags to allow per branch build numbers,
+      # not something github provides by default.
       - name: Generate Build Number
         id: buildnumber
         uses: onyxmueller/build-tag-number@v1
@@ -40,16 +42,7 @@ jobs:
           prefix: "build/${{ github.ref }}"
 
       - name: Deploy
-        # TODO: Uncomment after initial release to generate metadata xml
-#        run: ./gradlew checkVersion publish -S
-        run: ./gradlew publish -S
-
-# Don't publish to Gradle Portal, it creates more hassle then fixes.
-#      - name: Release Plugin (Gradle Plugin Portal)
-#        env:
-#          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
-#          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
-#        run: ./gradlew publishPlugins -S
+        run: ./gradlew checkVersion publish -S
 
       - name: Release Plugin (Sonatype Maven Central)
         env:
@@ -59,4 +52,5 @@ jobs:
           GPG_PASSPHRASE_KEY: ${{ secrets.GPG_PASSPHRASE_KEY }}
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+          BRANCH_NAME: ${{ github.ref }}
         run: ./gradlew jreleaserFullRelease -S
