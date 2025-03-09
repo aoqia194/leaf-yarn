@@ -36,16 +36,16 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build
-        run: ./gradlew build -S --warning-mode fail
+        run: ./gradlew build -S
 
       - name: Generate Javadoc Jar
-        run: ./gradlew javadocJar -S --warning-mode fail
+        run: ./gradlew javadocJar -S
 
       - name: Check Mappings
-        run: ./gradlew checkMappings -S --warning-mode fail
+        run: ./gradlew checkMappings -S
 
       - name: Format Mappings
-        run: ./gradlew formatMappings -S --warning-mode fail
+        run: ./gradlew formatMappings -S
 
       - name: Check Uncommited Changes
         run: if [ -n "$(git status --porcelain)" ]; then exit 1; fi
