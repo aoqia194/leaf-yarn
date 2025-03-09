@@ -1,28 +1,25 @@
-# Ignore everything
-/*
+.gradle
+**/build/
+#!src/**/build/
 
-# Folders
-!/.github
-!/filament
-!/gradle
-!/src
-!/unpick-definitions
-!/mappings
+# Ignore entire pesky .idea folder
+.idea
 
-# Files
+# Ignore Gradle GUI config
+gradle-app.setting
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+# Cache of project
+.gradletasknamecache
 
-!.editorconfig
-!.gitattributes
-!.gitignore
-!build.gradle
-!CONTRIBUTING.md
-!enigma_profile.json
-!gradle.properties
-!gradlew
-!gradlew.bat
-!HEADER
-!LICENSE
-!MAINTAINERS
-!README.md
-!settings.gradle
-!unpick-logging.properties
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# JetBrains IDEA stuff
+*.iml
+*.ipr
