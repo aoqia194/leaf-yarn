@@ -14,8 +14,8 @@ buildscript {
 plugins {
     id 'java' // for constants, packages, javadoc
     id "com.diffplug.spotless" version "6.21.0"
-    id 'dev.aoqia.leaf.loom'
-    id 'dev.aoqia.leaf.filament'
+    id 'dev.aoqia.leaf.loom' version '0.1.1'
+    id 'dev.aoqia.leaf.filament' version '0.1.0'
     // Publishing to Maven Central
     id 'org.jreleaser' version '1.16.0'
     id 'maven-publish'
@@ -26,7 +26,7 @@ loom {
 }
 
 filament {
-    zomboidVersion = project.zomboidVersion
+    zomboidVersion = rootProject.zomboidVersion
 }
 
 def ENV = System.getenv()
@@ -67,6 +67,7 @@ dependencies {
     asm "org.ow2.asm:asm-tree:${project.asm_version}"
     asm "org.ow2.asm:asm-commons:${project.asm_version}"
     asm "org.ow2.asm:asm-util:${project.asm_version}"
+    // TODO: Uncomment when loader is published
 //    javadocClasspath "${project.group}:loader:${project.leaf_loader_version}"
     javadocClasspath "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
     javadocClasspath "com.google.code.findbugs:jsr305:3.0.2" // for some other jsr annotations

@@ -1,21 +1,12 @@
 pluginManagement {
-    // FIXME: Gradle is shit and wouldn't resolve it, so I had to add this block.
-    // PLEASE DO NOT USE THIS FOR AN EXTENDED PERIOD OF TIME. IT'S NOT GOOD.
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.namespace == 'dev.aoqia.leaf') {
-                useModule("${requested.id.namespace}:loom:0.1.0")
-            }
-        }
-    }
     repositories {
-		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
-		}
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
         gradlePluginPortal()
         mavenCentral()
-	}
+    }
 }
 
 // This check is done here before any plugins that may require java 21 are able to load.
@@ -26,5 +17,3 @@ if (!JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)) {
 enableFeaturePreview "STABLE_CONFIGURATION_CACHE"
 
 rootProject.name = name
-
-includeBuild 'filament'
