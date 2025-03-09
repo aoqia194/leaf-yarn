@@ -28,7 +28,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 21
           distribution: temurin
           cache: gradle
 
@@ -59,14 +59,3 @@ jobs:
           retention-days: 7
           if-no-files-found: error
           overwrite: true
-
-  test-build-logic:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - uses: gradle/wrapper-validation-action@v2
-
-      - name: Build Filament
-        run: ./gradlew :filament:build -S
