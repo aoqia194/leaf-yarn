@@ -1,3 +1,0 @@
-CLASS zombie/ui/Clock
-	METHOD renderDisplay (ZLzombie/core/Color;)V
-		ARG 1 use24HourTime
