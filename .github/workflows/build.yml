@@ -1,8 +1,9 @@
 name: Build
 
 on:
-  - push
-  - pull_request
+# I don't want my self hosted runner that isn't available 24/7 to run builds constantly.
+#  - push
+#  - pull_request
   - workflow_call
   - workflow_dispatch
 
