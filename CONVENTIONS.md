@@ -229,24 +229,6 @@ The following is acceptable:
 
 In order to hint that the description references the game's content, inline links may be used.
 
-## Mojang names
-
-**Do not use names from Mojang's obfuscation maps.**
-
-Use names that match names in strings in the vanilla code, unless that string is outdated or inaccurate. This avoids confusion,
-especially from new modders who may not understand what a class exception message is referring to.
-
-Even if a known Mojang name doesn't appear in any strings, it's a good idea to use it since the official name is a good
-indicator of the class's actual purpose and makes it less likely the name will have to be changed in the future. For
-example, don't name a class that Mojang calls `BedrockBlock` `NoSpawningBlock`, even if its only purpose is to disable mob
-spawning, because Mojang may decide to override more methods in that class, breaking mods that were using it in an unexpected
-way.
-
-There are however three exceptions to this rule:
- - Use "world" for what Mojang calls "level" (see https://github.com/FabricMC/yarn/issues/89)
- - Use "screen handler" or "handler" (depending on context; if the screen part is obvious it can be omitted) for what Mojang calls "menu" (see https://github.com/FabricMC/yarn/pull/1106)
- - Use "inventory" for what Mojang calls "container" (no issue yet)
-
 ## Things to avoid
 
 Don't name methods based on implementation details. Names should describe what methods do, not how they work.
