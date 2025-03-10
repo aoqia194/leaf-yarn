@@ -14,7 +14,7 @@ buildscript {
 plugins {
     id 'java' // for constants, packages, javadoc
     id "com.diffplug.spotless" version "6.21.0"
-    id 'dev.aoqia.leaf.loom' version '0.1.1'
+    id 'dev.aoqia.leaf.loom' version '0.1.2'
     id 'dev.aoqia.leaf.filament' version '0.1.0'
     // Publishing to Maven Central
     id 'org.jreleaser' version '1.17.0'
