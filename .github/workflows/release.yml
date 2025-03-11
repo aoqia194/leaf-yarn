@@ -2,10 +2,6 @@ name: Release
 
 on: workflow_dispatch
 
-# Release job concurrency for multiple branch release at once.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   build:
     name: Build
