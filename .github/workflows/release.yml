@@ -38,7 +38,7 @@ jobs:
           prefix: "build/${{ github.ref }}"
 
       - name: Deploy
-        run: ./gradlew checkVersion publish -S
+        run: ./gradlew publish -S
 
       - name: Release Plugin (Sonatype Maven Central)
         env:
