@@ -3,13 +3,9 @@ name: Release
 on: workflow_dispatch
 
 jobs:
-  build:
-    name: Build
-    uses: ./.github/workflows/build.yml
-
   release:
+    if: ${{ github.repository_owner == 'aoqia194' }}
     name: Release
-    needs: build
     runs-on: self-hosted
 
     # Needed for Jreleaser to update CHANGELOG.md
@@ -37,10 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           prefix: "build/${{ github.ref }}"
 
-      - name: Deploy
-        run: ./gradlew publish -S
-
-      - name: Release Plugin (Sonatype Maven Central)
+      - name: Build and Release
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
@@ -49,4 +42,4 @@ jobs:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
           BRANCH_NAME: ${{ github.ref }}
-        run: ./gradlew jreleaserFullRelease -S
+        run: ./gradlew build javadocJar publish jreleaserFullRelease -S
