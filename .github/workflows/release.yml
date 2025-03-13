@@ -3,8 +3,23 @@ name: Release
 on: workflow_dispatch
 
 jobs:
+  tag:
+    name: Generate Build Number
+    runs-on: self-hosted
+
+    steps:
+    # Generate the build number based on tags to allow per branch build numbers,
+    # not something github provides by default.
+    - name: Generate Build Number
+      id: buildnumber
+      uses: onyxmueller/build-tag-number@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        prefix: "build/${{ github.ref }}"
+
   build:
     name: Build
+    needs: tag
     uses: ./.github/workflows/build.yml
 
   release:
@@ -27,15 +42,6 @@ jobs:
         with:
           name: build-output
           path: build/
-
-      # Generate the build number based on tags to allow per branch build numbers,
-      # not something github provides by default.
-      - name: Generate Build Number
-        id: buildnumber
-        uses: onyxmueller/build-tag-number@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          prefix: "build/${{ github.ref }}"
 
       - name: Deploy
         run: ./gradlew publish -S
